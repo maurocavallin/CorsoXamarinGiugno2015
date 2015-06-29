@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="EsempioProgrammaConForms.LoginPage">
+	<ContentPage.Content>
+
+		<StackLayout x:Name="StackLayoutPrincipale" Padding="50,50,50,50">
+
+			<Label x:Name="LabelNomeUtente" Text="Nome Utente:"></Label>
+			<Entry x:Name="EntryNomeUtente"></Entry>
+
+			<Label x:Name="LabelPassword" Text="Password:"></Label>
+			<Entry x:Name="EntryPassword" IsPassword="true"></Entry>
+
+			<Button x:Name="Invia" Text="Invia" ></Button>
+
+		</StackLayout>
+
+	</ContentPage.Content>
+</ContentPage>
