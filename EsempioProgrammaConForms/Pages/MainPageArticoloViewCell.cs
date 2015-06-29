@@ -19,8 +19,8 @@ namespace EsempioProgrammaConForms
 
 			immagineArticolo = new Image ();
 			immagineArticolo.HorizontalOptions = LayoutOptions.End;
-			immagineArticolo.SetBinding (Image.SourceProperty, Articolo.FIELD_NAME_ImageFullFileName);
-			// immagineArticolo.SetBinding (Image.SourceProperty, Articolo.FIELD_NAME_UrlImg);
+			// immagineArticolo.SetBinding (Image.SourceProperty, Articolo.FIELD_NAME_ImageFullFileName);
+			immagineArticolo.SetBinding (Image.SourceProperty, Articolo.FIELD_NAME_UrlImg);
 			immagineArticolo.HeightRequest = immagineArticolo.WidthRequest = 40;
 
 			StackLayout contenitore = new StackLayout (){ 

@@ -3,6 +3,7 @@ using System.IO;
 using Xamarin.Forms; 
 using EsempioProgrammaConForms;
 using EsempioProgrammaConForms.Droid;
+using PCLStorage;
 
 
 
@@ -23,7 +24,9 @@ namespace EsempioProgrammaConForms.Droid
 		public SQLite.SQLiteConnection GetConnection ()
 		{
 			var sqliteFilename = "TodoSQLite.db3";
-			string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal); // Documents folder
+			var  documentsPath =  System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal); // Documents folder
+
+			// string documentsPath = System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal); // Documents folder
 			var path = Path.Combine(documentsPath, sqliteFilename);
 
 			// This is where we copy in the prepopulated database

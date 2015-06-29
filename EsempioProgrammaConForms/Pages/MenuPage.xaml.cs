@@ -51,6 +51,7 @@ namespace EsempioProgrammaConForms
 			List<MenuListItem> listaElementiMenu = new List<MenuListItem> () {
 				new MenuListItem() { IdVoceDiMenu = 1, TestoVoceDiMenu = "Lista Articoli", Immagine = "icon.png", Attivato = true },	
 				new MenuListItem() { IdVoceDiMenu = 2, TestoVoceDiMenu = "Sincronizza", Immagine = "sync.png", Attivato = false },
+				new MenuListItem() { IdVoceDiMenu = 3, TestoVoceDiMenu = "Impostazioni", Immagine = "icon.png", Attivato = false },
 				// new MenuListItem() { IdVoceDiMenu = 3, TestoVoceDiMenu = "Voce 3", Immagine = "icon.png", Attivato = false },
 			};
 

@@ -10,6 +10,7 @@
 	<StackLayout>
 		 <Label x:Name="info"></Label>
 
+		 <Picker x:Name="PickerCategoria" Title="Categoria"></Picker>
 		 <SearchBar x:Name="Ricerca"></SearchBar>
 
 		<ListView x:Name="ListaPrincipale">

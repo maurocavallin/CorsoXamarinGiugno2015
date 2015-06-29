@@ -1,11 +1,13 @@
 ﻿using System;
 
 using Xamarin.Forms;
+using Refractored.Xam.Settings.Abstractions;
+using Refractored.Xam.Settings;
 
 namespace EsempioProgrammaConForms
 {
 	public class App : Application
-	{
+	{ 
 
 		static ArticoliDatabase database;
 

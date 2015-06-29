@@ -34,18 +34,33 @@ namespace EsempioProgrammaConForms
 
 				System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch ();
 				sw.Start ();
-				await _viewModel.LoadDataAsync(e.NewTextValue);
+
+				_viewModel.FiltroDescArticolo = e.NewTextValue;
+				await _viewModel.LoadDataAsync();
 				sw.Stop ();
 
 				this.info.Text = "Tempo : " + sw.Elapsed.TotalMilliseconds + " nro art: " + _viewModel.Lista.Count;
 			};
-			 
+
+			PickerCategoria.SelectedIndexChanged += async (object sender, EventArgs e) => {
+
+				string codiceCategoriaSelezionata = null;
+				if (PickerCategoria.SelectedIndex >= 0)
+				{
+					Categoria catSelezionata = _viewModel.ListaCategorie[PickerCategoria.SelectedIndex]; 
+					codiceCategoriaSelezionata = catSelezionata.cat_CODICE;
+				}
+
+				_viewModel.FiltroCodiceCategoria = codiceCategoriaSelezionata;
+				await _viewModel.LoadDataAsync ();
+			};
 		}
 
 		protected override async void OnAppearing ()
 		{
 			base.OnAppearing ();
 
+ 
 			// testare se utente autenticato
 			if (!App.SeUtenteAutenticato) {
 				// Navigation.PushModalAsync (new LoginPage());
@@ -55,7 +70,19 @@ namespace EsempioProgrammaConForms
 			sw.Start ();
 
 
-			await _viewModel.LoadDataAsync ("");
+			await _viewModel.LoadCategorieAsync ();
+		
+			foreach (var categoria in _viewModel.ListaCategorie)
+			{ 
+				PickerCategoria.Items.Add(categoria.cat_DESC);
+			}
+
+			this.PickerCategoria.SelectedIndex = -1;
+ 
+			_viewModel.FiltroDescArticolo = "";
+			_viewModel.FiltroCodiceCategoria = "";
+			await _viewModel.LoadDataAsync ();
+
 			sw.Stop ();
 
 			this.info.Text = "Tempo : " + sw.Elapsed.TotalMilliseconds + " nro art: " + _viewModel.Lista.Count;

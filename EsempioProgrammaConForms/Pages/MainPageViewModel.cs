@@ -14,9 +14,10 @@ namespace EsempioProgrammaConForms
 		public MainPageViewModel ()
 		{  
 			_lista = new List<Articolo> ();
+
 		}
 
-		public async Task LoadDataAsync(string filtro)
+		public async Task LoadDataAsync()
 		{
 			var listaDummyNonUsata = new List<Articolo> (){ 
 				new Articolo() { art_ID = "1", art_DESC = "desc" , art_IMG = "icon.png" },
@@ -25,9 +26,19 @@ namespace EsempioProgrammaConForms
 
 			// var listaArt = await _proxyService.GetArticoliAsync ();
 
-			var listaArt = await App.Database.GetItemsAsync (filtro);
+			var listaArt = await App.Database.GetItemsAsync (FiltroDescArticolo, FiltroCodiceCategoria);
 
 			Lista = listaArt.ToList();
+		}
+
+		public string FiltroDescArticolo { get; set; }
+		public string FiltroCodiceCategoria { get; set; }
+
+		public async Task LoadCategorieAsync()
+		{
+			var listaCategorie = await App.Database.GetCategorieAsync (null);
+
+			ListaCategorie = listaCategorie.ToList();
 		}
 
 		private List<Articolo> _lista;
@@ -40,6 +51,20 @@ namespace EsempioProgrammaConForms
 			set
 			{ 
 				_lista = value;
+				OnPropertyChanged ();
+			} 
+		}
+
+		private List<Categoria> _listaCategorie;
+		public List<Categoria> ListaCategorie
+		{ 
+			get
+			{ 
+				return _listaCategorie;
+			}
+			set
+			{ 
+				_listaCategorie = value;
 				OnPropertyChanged ();
 			} 
 		}

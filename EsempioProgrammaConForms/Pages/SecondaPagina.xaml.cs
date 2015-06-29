@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using PCLStorage;
 using System.IO;
+using System.Threading;
 
 namespace EsempioProgrammaConForms
 {
@@ -17,45 +18,73 @@ namespace EsempioProgrammaConForms
 		{
 			InitializeComponent ();
 
-			Sincronizza.Clicked += async (object sender, EventArgs e) => {
-				await proceduraDiSincro();
+			Sincronizza.Clicked += async (object sender, EventArgs e) => { 
+				await proceduraDiSincro(); // 
 			};
 		}
 
-		private async Task proceduraDiSincro()
+		private async Task proceduraDiSincro() // 
 		{
 			var listaArticoli = await _proxy.GetArticoliAsync ();
-
+			  
 			// App.Database.DeleteAllItems ();
 
 			int indice = 0;
 			int totale = listaArticoli.Count;
+ 
+				foreach (var articolo in listaArticoli) {
+					indice++;
 
-			foreach (var articolo in listaArticoli) {
-				indice++;
+					App.Database.SaveItem (articolo);
 
-				App.Database.SaveItem (articolo);
+					try {
+						await saveImageToDisk (articolo); // 
+					} catch (Exception ex) {
+						var a = ex;
 
-				await saveImageToDisk (articolo);
+					}
 
-				this.Progress.Text = String.Format ("Art {0} di {1}",
+					this.Progress.Text = String.Format ("Art {0} di {1}",
+						indice, totale);
+				} 
+			// var listaArt = App.Database.GetItems (null);
+
+
+			// CATEGORIE
+			var listaCategorie = await _proxy.GetCategorieAsync ();
+
+			indice = 0;
+			totale = listaCategorie.Count;
+
+			App.Database.DeleteAllCategorie ();
+
+			foreach (var categoria in listaCategorie) {
+				indice++; 
+				App.Database.SaveCategoria (categoria);  
+				this.Progress.Text = String.Format ("Categoria {0} di {1}",
 					indice, totale);
 			}
+		} 
 
-			// var listaArt = App.Database.GetItems (null);
-		}
 
-		private async Task saveImageToDisk(Articolo art)
+
+
+		private async Task saveImageToDisk(Articolo art) // async
 		{
 			HttpClient c = new HttpClient();
 			c.BaseAddress =  new Uri(art.UrlImg);
+			c.Timeout = new TimeSpan(0,0, 3);
 
 			Byte[] imgByteArray = await c.GetByteArrayAsync ("");
 
-			IFolder rootFolder = FileSystem.Current.LocalStorage;
+			CancellationToken a = new CancellationToken();
 
+			IFolder rootFolder = FileSystem.Current.LocalStorage;
+  
 			IFolder folder = await rootFolder.CreateFolderAsync("Immagini",
 				CreationCollisionOption.OpenIfExists);
+
+			var listaFilePerVerifica = await folder.GetFilesAsync (new CancellationToken ());
 
 			var listafile = await folder.GetFilesAsync ();
 			
@@ -65,7 +94,7 @@ namespace EsempioProgrammaConForms
 			// http://www.mallibone.com/post/storing-files-from-the-portable-class-library-(pcl)
 
 			using (var fileHandler = await file.OpenAsync (FileAccess.ReadAndWrite)) {
-				await fileHandler.WriteAsync(imgByteArray, 0, imgByteArray.Length);
+				fileHandler.WriteAsync(imgByteArray, 0, imgByteArray.Length); // await
 			}   
 		}
 	}

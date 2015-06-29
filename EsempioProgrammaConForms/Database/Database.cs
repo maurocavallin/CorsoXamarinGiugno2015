@@ -27,26 +27,46 @@ namespace EsempioProgrammaConForms
 			database = db.GetConnection ();
 			// create the tables
 			database.CreateTable<Articolo>();
+			database.CreateTable<Categoria> ();
 		}
 
-		public async Task<IEnumerable<Articolo>> GetItemsAsync (string filtro)
+		public async Task<IEnumerable<Articolo>> GetItemsAsync (string filtro, string filtroCategoria)
 		{
 			var result = await Task.Run (() => {
-				return GetItems (filtro);
+				return GetItems (filtro, filtroCategoria);
 			});
 
 			return result;
 		}
 
-		public IEnumerable<Articolo> GetItems (string filtro)
+		public IEnumerable<Articolo> GetItems (string filtro, string filtroCategoriaCodice)
 		{
 			lock (locker) {
-				if (String.IsNullOrEmpty (filtro)) {
-					return (from i in database.Table<Articolo> ()
-					        select i).ToList ();
+
+				var query = from i in database.Table<Articolo> () select i;
+
+				if (!String.IsNullOrEmpty (filtro))
+				{
+					query = query.Where (x => x.art_DESC.Contains (filtro));
+				}
+
+				if (!String.IsNullOrEmpty (filtroCategoriaCodice))
+				{
+					query = query.Where (x => x.art_CATEGORIA_CODICE.Contains (filtroCategoriaCodice));
+				}
+
+				return query.ToList ();
+			}
+		}
+
+		public int SaveItem (Articolo item) 
+		{
+			lock (locker) {
+				if (item.Id != 0) {
+					database.Update(item);
+					return item.Id;
 				} else {
-					return (from i in database.Table<Articolo> ()
-					       select i).Where (x => x.art_DESC.Contains (filtro)).ToList ();
+					return database.Insert(item);
 				}
 			}
 		}
@@ -65,17 +85,7 @@ namespace EsempioProgrammaConForms
 			}
 		}
 
-		public int SaveItem (Articolo item) 
-		{
-			lock (locker) {
-				if (item.Id != 0) {
-					database.Update(item);
-					return item.Id;
-				} else {
-					return database.Insert(item);
-				}
-			}
-		}
+
 
 		public int DeleteItem(int id)
 		{
@@ -90,6 +100,50 @@ namespace EsempioProgrammaConForms
 				database.Execute ("DELETE FROM Articolo");
 			}
 		}
+
+
+
+		public async Task<IEnumerable<Categoria>> GetCategorieAsync (string filtro)
+		{
+			var result = await Task.Run (() => {
+				return GetCategorie (filtro);
+			});
+
+			return result;
+		}
+
+		public IEnumerable<Categoria> GetCategorie (string filtro)
+		{
+			lock (locker) {
+				if (String.IsNullOrEmpty (filtro)) {
+					return (from i in database.Table<Categoria> ()
+						select i).ToList ();
+				} else {
+					return (from i in database.Table<Categoria> ()
+						select i).Where (x => x.cat_ID.Contains (filtro)).ToList ();
+				}
+			}
+		}
+
+		public int SaveCategoria (Categoria item) 
+		{
+			lock (locker) {
+				if (item.Id != 0) {
+					database.Update(item);
+					return item.Id;
+				} else {
+					return database.Insert(item);
+				}
+			}
+		}
+
+		public void DeleteAllCategorie()
+		{
+			lock (locker) {
+				database.Execute ("DELETE FROM Categoria");
+			}
+		}
+
 	}
 }
 

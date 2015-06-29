@@ -22,6 +22,8 @@ namespace EsempioProgrammaConForms
 		public String art_ID { get; set; }
 		public String art_DESC { get; set; }
 		public String art_IMG { get; set; }
+		public String art_CATEGORIA_CODICE { get; set; }
+		public String art_CATEGORIA_DESCRIZIONE { get; set; }
 
 		public String UrlImg 
 		{
@@ -35,7 +37,7 @@ namespace EsempioProgrammaConForms
 		{
 			get
 			{
-				return art_ID.Replace (".", "").Replace("/","") + ".png";
+				return art_ID.Replace (".", "").Replace("/","") + ".jpg";
 			}
 		}
 
@@ -49,6 +51,8 @@ namespace EsempioProgrammaConForms
 				return filename;
 			}
 		}
+
+		 
 	}
 }
 

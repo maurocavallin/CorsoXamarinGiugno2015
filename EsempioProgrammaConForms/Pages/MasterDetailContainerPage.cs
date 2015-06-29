@@ -9,6 +9,7 @@ namespace EsempioProgrammaConForms
 	{
 		private NavigationPage _paginaPrincipale;
 		private SecondaPagina _secondaPagina;
+		private SettingsPage _settingsPage;
 
 		public MasterDetailContainerPage ()
 		{
@@ -37,6 +38,16 @@ namespace EsempioProgrammaConForms
 					Detail = _secondaPagina;
 
 					IsPresented = false;	
+					break;
+				case 3:
+
+					if (_settingsPage == null)
+						_settingsPage = new SettingsPage();
+					
+					Detail = _settingsPage;
+
+					IsPresented = false;
+
 					break;
 				}
 			};
