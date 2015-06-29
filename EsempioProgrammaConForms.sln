@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsempioProgrammaConForms", "EsempioProgrammaConForms\EsempioProgrammaConForms.csproj", "{BF38215B-C7F0-40BD-81A4-A64EE027CCC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsempioProgrammaConForms.Droid", "Droid\EsempioProgrammaConForms.Droid.csproj", "{53860DCE-895F-4293-A52F-A748E314F616}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{53860DCE-895F-4293-A52F-A748E314F616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53860DCE-895F-4293-A52F-A748E314F616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53860DCE-895F-4293-A52F-A748E314F616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53860DCE-895F-4293-A52F-A748E314F616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF38215B-C7F0-40BD-81A4-A64EE027CCC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF38215B-C7F0-40BD-81A4-A64EE027CCC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF38215B-C7F0-40BD-81A4-A64EE027CCC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF38215B-C7F0-40BD-81A4-A64EE027CCC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
