@@ -13,6 +13,8 @@ namespace EsempioProgrammaConForms
 		{
 			InitializeComponent ();
 			Title = "App";
+
+			// this.BackgroundColor = Color.Yellow;
 			  
 			this.BindingContext = _viewModel;
 			var cell = new DataTemplate (typeof(MainPageArticoloViewCell)); 

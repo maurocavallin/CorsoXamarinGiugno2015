@@ -20,7 +20,7 @@ namespace EsempioProgrammaConForms
 
 			_paginaPrincipale = new NavigationPage(new MainPage () ) { BarBackgroundColor = Color.Green };
 			Detail = _paginaPrincipale;
-
+			IsPresented = true;
 
 
 			paginaDiMenu.EventoVoceSelezionata+= (int idVoceSelezionata) => {
